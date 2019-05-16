@@ -4,23 +4,44 @@ import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.orhanobut.hawk.Hawk;
+
 
 public class FormRegister extends AppCompatActivity {
 
     EditText edtName,edtfamily,edtEmail,edtAge;
     String  emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+    ActionBarDrawerToggle toolbar;
+    DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_register);
         boolean Result=true;
 
+        /*drawer hamberger Menu */
+        drawerLayout=findViewById(R.id.drawer_layout);
+
+        toolbar = new ActionBarDrawerToggle(FormRegister.this,drawerLayout,R.string.drawer_open,R.string.drawer_open);
+
+
+        drawerLayout.addDrawerListener(toolbar);
+        toolbar.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /*drawer hamberger Menu */
         edtName = findViewById(R.id.edtName);
         edtfamily=findViewById(R.id.edtFamily);
         edtAge=findViewById(R.id.edtAge);
@@ -60,9 +81,24 @@ public class FormRegister extends AppCompatActivity {
            }
        });
 
+        Button btnRecycle=findViewById(R.id.btnRecycle);
+        btnRecycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(FormRegister.this,RecycleList.class);
+                startActivityForResult(intent,201);
+            }
+        });
 
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(toolbar.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -74,9 +110,14 @@ public class FormRegister extends AppCompatActivity {
                 String Age=data.getStringExtra("Age");
                 String Email=data.getStringExtra("Email");
 
-                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("fullName", fullName).apply();
-                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("Age", Age).apply();
-                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("Email", Email).apply();
+//                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("fullName", fullName).apply();
+//                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("Age", Age).apply();
+//                PreferenceManager.getDefaultSharedPreferences(FormRegister.this).edit().putString("Email", Email).apply();
+
+                Hawk.init(FormRegister.this).build();
+                Hawk.put("fullName",fullName);
+                Hawk.put("Age",Age);
+                Hawk.put("Email",Email);
                 edtName.setText("");
                 edtfamily.setText("");
                 edtAge.setText("");
