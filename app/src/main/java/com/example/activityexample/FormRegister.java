@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -81,8 +82,8 @@ public class FormRegister extends AppCompatActivity {
            }
        });
 
-        Button btnRecycle=findViewById(R.id.btnRecycle);
-        btnRecycle.setOnClickListener(new View.OnClickListener() {
+        TextView txtrecycle=findViewById(R.id.txtrecycle);
+        txtrecycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent =new Intent(FormRegister.this,RecycleList.class);

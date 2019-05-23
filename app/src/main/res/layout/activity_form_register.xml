@@ -97,12 +97,21 @@
         android:background="@color/colorPrimary"
         android:id="@+id/layout_toolbar"
         >
-       <Button
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="RecycleViewList"
-           android:id="@+id/btnRecycle"
-           android:gravity="center"/>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="20sp"
+                android:paddingBottom="20sp"
+                android:background="@android:color/white"
+                android:text="RecycleListView"
+                android:id="@+id/txtrecycle"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
 
     </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v4.widget.DrawerLayout>
